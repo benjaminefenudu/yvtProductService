@@ -33,7 +33,6 @@ class GetProductsAvailable {
         product.sold = orderQuantity;
 
         product.save();
-        console.log(`${product.name} reserved`);
       }
 
       return productAvailable;
