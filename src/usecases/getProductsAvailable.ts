@@ -27,6 +27,7 @@ class GetProductsAvailable {
         console.log(`${product.name} is out of stock`);
         productAvailable = false;
       } else {
+        console.log(`${orderQuantity} ${product.name} reserved`);
         productAvailable = true;
         const newQuantity = product.quantity - orderQuantity;
         product.quantity = newQuantity;

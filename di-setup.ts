@@ -22,7 +22,7 @@ const container = createContainer({
 
 container.register({
   database: asValue(database),
-  messenger: asClass(Messenger),
+  messenger: asClass(Messenger, { lifetime: Lifetime.SINGLETON }),
   productModel: asValue(ProductModel),
   productRepository: asClass(ProductRepository),
   productController: asClass(ProductController),
