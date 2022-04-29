@@ -15,6 +15,7 @@ import CreateProduct from './src/usecases/createProduct';
 import GetProduct from './src/usecases/getProduct';
 import GetAllProducts from './src/usecases/getAllProducts';
 import GetProductsAvailable from './src/usecases/getProductsAvailable';
+import ReleaseReservedProducts from './src/usecases/releaseReservedProducts';
 
 const container = createContainer({
   injectionMode: InjectionMode.PROXY,
@@ -30,6 +31,7 @@ container.register({
   getProduct: asClass(GetProduct),
   getAllProducts: asClass(GetAllProducts),
   getProductsAvailable: asClass(GetProductsAvailable),
+  releaseReservedProducts: asClass(ReleaseReservedProducts),
 });
 
 export default container;

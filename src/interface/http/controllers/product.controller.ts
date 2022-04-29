@@ -3,28 +3,33 @@ import CreateProduct from '../../../usecases/createProduct';
 import GetAllProducts from '../../../usecases/getAllProducts';
 import GetProduct from '../../../usecases/getProduct';
 import GetProductsAvailable from '../../../usecases/getProductsAvailable';
+import ReleaseReservedProducts from '../../../usecases/releaseReservedProducts';
 
 class ProductController {
   createProduct: CreateProduct;
   getAllProducts: GetAllProducts;
   getProduct: GetProduct;
   getProductsAvailable: GetProductsAvailable;
+  releaseReservedProducts: ReleaseReservedProducts;
 
   constructor({
     createProduct,
     getAllProducts,
     getProduct,
     getProductsAvailable,
+    releaseReservedProducts,
   }: {
     createProduct: CreateProduct;
     getAllProducts: GetAllProducts;
     getProduct: GetProduct;
     getProductsAvailable: GetProductsAvailable;
+    releaseReservedProducts: ReleaseReservedProducts;
   }) {
     this.createProduct = createProduct;
     this.getAllProducts = getAllProducts;
     this.getProduct = getProduct;
     this.getProductsAvailable = getProductsAvailable;
+    this.releaseReservedProducts = releaseReservedProducts;
   }
 
   // CREATE
@@ -99,6 +104,32 @@ class ProductController {
         return res.status(200).json({
           productAvailable: productAvailable,
           price: price,
+        });
+      }
+    } catch (error) {
+      if (error instanceof Error) {
+        res.status(400).json({ success: false, msg: `${error.message}` });
+        throw error;
+      }
+      throw error;
+    }
+  }
+
+  // RELEASE RESERVED PRODUCTS
+  async releaseProducts(req: Request, res: Response) {
+    try {
+      const payload = req.body;
+
+      const productReleased = await this.releaseReservedProducts.execute(
+        payload
+      );
+      if (productReleased) {
+        return res.status(200).json({
+          productReleased,
+        });
+      } else {
+        return res.status(400).json({
+          productReleased,
         });
       }
     } catch (error) {
